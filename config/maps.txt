@@ -13,8 +13,11 @@ Format:
 	votable (is this map votable)
 endmap
 
-map blackstone
+map vanderlin
 	default
+endmap
+
+map blackstone
 	#voteweight 1.5
 	minplayers 100
 	votable
