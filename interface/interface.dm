@@ -56,7 +56,7 @@
 /client/verb/mentorhelp()
 	set name = "Mentorhelp"
 	set desc = ""
-	set category = "Admin"
+	set category = "OOC"
 	if(mob)
 		var/msg = input("Say your meditation:", "Voices in your head") as text|null
 		if(msg)
@@ -98,11 +98,12 @@
 		prefs.save_preferences()
 		winset(src, "infowindow.changelog", "font-style=;")
 
+/*
 /client/verb/hotkeys_help()
 	set name = "_Help-Controls"
 	set category = "OOC"
 	mob.hotkey_help()
-
+*/
 
 /mob/proc/hotkey_help()
 	var/hotkey_mode = {"<font color='purple'>
@@ -145,7 +146,7 @@ Hotkey-Mode: (hotkey-mode must be on)
 
 /client/verb/set_fixed()
 	set name = "IconSize"
-	set category = "Options"
+	set category = "OOC"
 
 	if(winget(src, "mapwindow.map", "icon-size") == "64")
 		to_chat(src, "Stretch-to-fit... OK")
@@ -156,7 +157,7 @@ Hotkey-Mode: (hotkey-mode must be on)
 
 /client/verb/set_stretch()
 	set name = "IconScaling"
-	set category = "Options"
+	set category = "OOC"
 	if(prefs)
 		if(prefs.crt == TRUE)
 			to_chat(src, "CRT mode is on.")
@@ -169,33 +170,13 @@ Hotkey-Mode: (hotkey-mode must be on)
 		to_chat(src, "Anti-aliased... OK")
 		winset(src, "mapwindow.map", "zoom-mode=normal")
 
-/client/verb/crtmode()
-	set category = "Options"
-	set name = "ToggleCRT"
-	if(!prefs)
-		return
-	if(prefs.crt == TRUE)
-		winset(src, "mapwindow.map", "zoom-mode=normal")
-		prefs.crt = FALSE
-		prefs.save_preferences()
-		to_chat(src, "CRT... OFF")
-		for(var/atom/movable/screen/scannies/S in screen)
-			S.alpha = 0
-	else
-		winset(src, "mapwindow.map", "zoom-mode=blur")
-		prefs.crt = TRUE
-		prefs.save_preferences()
-		to_chat(src, "CRT... ON")
-		for(var/atom/movable/screen/scannies/S in screen)
-			S.alpha = 70
-
 /client/verb/triggercommend()
 	set category = "OOC"
 	set name = "Commend Someone"
 	commendsomeone()
 
 /client/verb/changefps()
-	set category = "Options"
+	set category = "OOC"
 	set name = "ChangeFPS"
 	if(!prefs)
 		return
@@ -208,12 +189,12 @@ Hotkey-Mode: (hotkey-mode must be on)
 /*
 /client/verb/set_blur()
 	set name = "AAOn"
-	set category = "Options"
+	set category = "OOC"
 
 	winset(src, "mapwindow.map", "zoom-mode=blur")
 
 /client/verb/set_normal()
 	set name = "AAOff"
-	set category = "Options"
+	set category = "OOC"
 
 	winset(src, "mapwindow.map", "zoom-mode=normal")*/

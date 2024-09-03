@@ -85,8 +85,8 @@
 		log_admin("[admin] adjusted [key]'s PQ by [amt] for reason: [reason]")
 
 /client/proc/check_pq()
-	set category = "GameMaster"
-	set name = "CheckPQ"
+	set category = "Admin"
+	set name = "PQ-Check"
 	if(!holder)
 		return
 	var/selection = alert(src, "Check VIA...", "Check PQ", "Character List", "Player List", "Player Name")
@@ -148,8 +148,8 @@
 	popup.open()
 
 /client/proc/adjust_pq()
-	set category = "GameMaster"
-	set name = "AdjustPQ"
+	set category = "Admin"
+	set name = "PQ-Adjust"
 	if(!holder)
 		return
 	var/selection = alert(src, "Adjust VIA...", "MODIFY PQ", "Character List", "Player List", "Player Name")
@@ -181,9 +181,6 @@
 		if(!selection)
 			return
 		theykey = selection
-	if(theykey == ckey)
-		to_chat(src, span_boldwarning("That's you!"))
-		return
 	if(!fexists("data/player_saves/[copytext(theykey,1,2)]/[theykey]/preferences.sav"))
 		to_chat(src, span_boldwarning("User does not exist."))
 		return

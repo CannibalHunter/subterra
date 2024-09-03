@@ -14,7 +14,7 @@
 
 /datum/verbs/menu/Settings/verb/setup_character()
 	set name = "Game Preferences"
-	set category = "Options"
+	set category = "OOC"
 	set desc = ""
 	set hidden = 1
 	usr.client.prefs.current_tab = 1
@@ -23,7 +23,7 @@
 
 /client/verb/toggle_fullscreen()
 	set name = "ToggleFullscreen"
-	set category = "Options"
+	set category = "OOC"
 	set desc = ""
 	if(prefs)
 		prefs.toggles ^= TOGGLE_FULLSCREEN
@@ -31,7 +31,7 @@
 
 /client/verb/stop_sounds_rogue()
 	set name = "StopSounds"
-	set category = "Options"
+	set category = "OOC"
 	set desc = ""
 	if(mob)
 		SEND_SOUND(mob, sound(null))
@@ -143,7 +143,7 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Ghost, togglemidroundantag)()
 /*
 TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggletitlemusic)()
 	set name = "LobbyMusic"
-	set category = "Options"
+	set category = "OOC"
 	set desc = ""
 	set hidden = 1
 	usr.client.prefs.toggles ^= SOUND_LOBBY
@@ -247,7 +247,7 @@ TOGGLE_CHECKBOX(/datum/verbs/menu/Settings/Sound, toggle_announcement_sound)()
 
 /datum/verbs/menu/Settings/Sound/verb/stop_client_sounds()
 	set name = "Stop Sounds"
-	set category = "Options"
+	set category = "OOC"
 	set desc = ""
 	SEND_SOUND(usr, sound(null))
 	var/client/C = usr.client
@@ -502,3 +502,30 @@ GLOBAL_LIST_INIT(ghost_orbits, list(GHOST_ORBIT_CIRCLE,GHOST_ORBIT_TRIANGLE,GHOS
 		return
 	prefs.asaycolor = initial(prefs.asaycolor)
 	prefs.save_preferences()
+
+/client/proc/hearallasghost()
+	set category = "Prefs - Admin"
+	set name = "Toggle Admin Hear All"
+	if(!holder)
+		return
+	if(!prefs)
+		return
+	prefs.chat_toggles ^= CHAT_GHOSTEARS
+//	prefs.chat_toggles ^= CHAT_GHOSTSIGHT
+	prefs.chat_toggles ^= CHAT_GHOSTWHISPER
+	prefs.save_preferences()
+	if(prefs.chat_toggles & CHAT_GHOSTEARS)
+		to_chat(src, span_notice("I will hear all now."))
+	else
+		to_chat(src, span_info("I will hear like a mortal."))
+
+/client/proc/aghosthidechar()
+	set category = "Prefs - Admin"
+	set name = "Show/Hide Character on Aghost"
+	if(!holder)
+		return
+	if(!prefs)
+		return
+	prefs.toggles ^= AGHOST_HIDE_CHAR
+	prefs.save_preferences()
+	to_chat(src, span_notice("Aghosting will [(prefs.toggles & AGHOST_HIDE_CHAR) ? "now" : "no longer"] hide your character."))
